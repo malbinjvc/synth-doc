@@ -24,5 +24,30 @@
 ## Runtime Errors
 None encountered during development.
 
-## Security Audit Issues
-See security audit section in project report for details.
+---
+
+## Security Audit Findings (10-Point)
+
+| # | Area | Status | Notes |
+|---|------|--------|-------|
+| 1 | Hardcoded Credentials | PASS | Only test mock key "sk-test-key"; API key from env var |
+| 2 | Sensitive File Exposure | PASS | .gitignore covers .env, credentials.json |
+| 3 | SQL Injection | PASS | N/A - in-memory ConcurrentHashMap |
+| 4 | XSS & Input Validation | FAIL | No input validation on titles/descriptions; error messages exposed |
+| 5 | Authentication | FAIL | No auth on any endpoint |
+| 6 | CORS & Headers | FAIL | No CORS, no security headers |
+| 7 | File Upload Security | PASS | N/A - no upload endpoints |
+| 8 | Docker Security | PASS | Multi-stage build, non-root user, version pinned |
+| 9 | Infrastructure | PASS | CI/CD properly configured |
+| 10 | Dependencies | PASS | Javalin 6.6.0, Jackson 2.18.0 from Maven Central |
+
+**Critical**: No authentication - all endpoints publicly accessible
+**Note**: Acceptable for portfolio demo; add auth before production use
+
+---
+
+## Final Status
+- **Tests**: 117/117 passing
+- **Build**: Successful
+- **Docker**: Builds successfully
+- **CI/CD**: Configured
